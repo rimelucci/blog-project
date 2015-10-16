@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+    <html>
+
+        <head>
+          <meta charset="utf-8">
+          
+            <title>
+                Travlr - Your Blog  
+            </title>
+          
+<!-------------------------------------------------------------------------------------------------------->
+
+            <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="/static/jquery-1.11.3.min.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
+<!-------------------------------------------------------------------------------------------------------->
+            
+          <style>
+            body{
+                background-image: url(/static/grey_wash_wall.png);
+            }
+            
+            .container{
+                background-color: white;
+                border-radius: 15px;
+                padding: 5%;
+            }
+              
+            .post{
+                background-color: #F2B3B3;
+                border-radius: 15px;
+                padding: 5%;
+            }
+              
+            .writing{
+                font-family: 'Source Sans Pro', sans-serif;
+            }
+              
+              
+            .menu {
+                background: white;
+                right: -250px;  /* start off behind the scenes */
+                height: 100%;
+                position: fixed;
+                width: 250px;
+                z-index: 99999;
+            }
+              
+              
+            .description{
+                color: white;
+            }
+            
+          </style>
+          <script type="text/javascript" src="/static/app.js"></script>
+        </head>
+
+
+      <body>
+          
+        <div class="menu">
+           <div class="list-group" style="margin-top: 80px ; padding: 10px">
+                <a href="#home" class="list-group-item" style="border-top: none">Home</a>
+                <a href="#mission" class="list-group-item">Mission</a>
+                <a href="#features" class="list-group-item">Features</a>
+                <a href="#team" class="list-group-item">Team</a>
+                <a href="#subscribe" class="list-group-item" style="border-bottom: none">Subscribe</a>
+            </div>
+        </div>  
+          
+          
+          
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Travlr</a>
+                </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/homepage">Home</a></li>
+                    <li><a href="#" class="friends-button">Your Friends</a></li>
+                    <li class="active"><a href="/setting">Settings</a></li> 
+                    <li><a href="#">Log out</a></li> 
+                </ul>
+            </div>
+        </div>
+    </nav>
+          
+          <div class="container">
+              <h1 class="writing">
+                  <center>
+                        Settings
+                  </center>
+              </h1>
+              <hr style="width: 50%">
+              <center><form class="form">
+                  <h3 class="writing">Username: <input class="writing" type="text" name="username"></h3>
+                  <h3 class="writing">Old Password: <input class="writing" type="password" name="password"></h3>
+                  <h3 class="writing">New Password: <input class="writing" type="password" name="password"></h3>
+                  <h3 class="writing">Confirm New Password: <input class="writing" type="password" name="password"></h3>
+
+              </form></center>
+          </div>
+          
+          
+      </body>
+    </html>
