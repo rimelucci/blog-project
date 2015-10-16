@@ -3,12 +3,14 @@ import sqlite3
 conn = sqlite3.connect("Data.db")
 c = conn.cursor()
 
-c.execute("INSERT INTO accounts VALUES('milo', 'password');")
-
-conn.commit()
-
 def pwordAuth(uname, pword):
-    print c.execute("SELECT pword FROM accounts WHERE name = '"+uname+"';")
+    p = c.execute("SELECT pword FROM accounts WHERE uname = '"+uname+"';")
+    for r in p:
+        return r[0] == pword
 
+def addAccount(uname, pword):
+    c.execute("INSERT INTO accounts VALUES (?, ?)", (uname, pword))
+    conn.commit()
 
-pwordAuth("milo", "pword")
+#def changePword(uname, oldP, newP, cNewP):
+#    result = c.execute(
