@@ -1,5 +1,7 @@
 var main = function () {
     
+    $('.fullform').hide();
+    
     $(".friends-button").click(
         function(){
             
@@ -11,6 +13,28 @@ var main = function () {
             $('body').animate({
                 right: "250px"
             }, 300);
+        }
+    );
+    
+    $(".close").click(
+        function(){
+            
+            $('.menu').animate({
+                right: "-250px"
+            }, 300);
+        
+            
+            $('body').animate({
+                right: "0px"
+            }, 300);
+        }
+    );
+    
+    $(".startwriting").click(
+        function(){
+            
+            $('.startwriting').hide(300);
+            $('.fullform').show(300);
         }
     );
 }
