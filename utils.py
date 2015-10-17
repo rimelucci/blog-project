@@ -8,14 +8,14 @@ def pwordAuth(uname, pword):
         return r[0] == pword
     return False
 
-def addAccount(uname, pword):
+def addAccount(uname, pword, first, last):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
     accounts = c.execute("SELECT uname FROM accounts")
     for r in accounts:
         if r[0] == uname:
             return "This account name already exists"
-    c.execute("INSERT INTO accounts VALUES (?, ?);", (uname, pword))
+    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?);", (uname, pword, first, last))
     conn.commit()
 
 def changePword(uname, oldP, newP, cNewP):
@@ -33,6 +33,13 @@ def changePword(uname, oldP, newP, cNewP):
         conn.commit()        
         return "Password successfully updated"
 
+def findName(uname):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    n = c.execute("SELECT first, last FROM accounts WHERE uname ='"+uname+"';")
+    for r in n:
+        return n[0]+" "+n[1]
+
 #+=====++ Blog Posts ++=====+#
 
 # posts:
@@ -47,6 +54,7 @@ def changePword(uname, oldP, newP, cNewP):
 def setup():
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
+    c.execute("CREATE TABLE accounts (uname text, pword text, first text, last text)")
     c.execute("CREATE TABLE posts (id integer, uname text, post text, time text)")
     c.execute("CREATE TABLE comments (id integer, uname text, comment text, time text)")
     c.execute("CREATE TABLE posts (id integer, uname text)")
