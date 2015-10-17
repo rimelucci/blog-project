@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 dict = {"test":123}
@@ -16,7 +16,7 @@ def login():
             print(dict[username])
             print(request.form["password"])
             if str(dict[username]) == str(request.form["password"]):
-                return render_template("/feed.html")
+                return redirect('/feed/' + username)
             else:
                 return render_template("/home.html", text = "Username/Password does not match")
         else:
@@ -39,8 +39,9 @@ def homepage():
 def setting():
     return render_template("setting.html")
 
-@app.route("/feed", methods = ["POST"])
-def route():
+@app.route("/feed")
+@app.route("/feed/<username>")
+def feed(username):
     return render_template("feed.html")
 
 if __name__ == "__main__":
