@@ -5,7 +5,7 @@
           <meta charset="utf-8">
           
             <title>
-                Travlr - Your Blog  
+                Travlr - Your Feed  
             </title>
           
 <!-------------------------------------------------------------------------------------------------------->
@@ -57,6 +57,12 @@
                 color: white;
             }
             
+            .fullform{
+                border-radius: 15px;
+                opacity: .8;
+                margin-bottom: 1%;
+                display: none;
+            }
           </style>
           <script type="text/javascript" src="/static/app.js"></script>
         </head>
@@ -85,7 +91,8 @@
                 </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/feed/{{username}}">Home</a></li>
+                    <li class="active"><a href="/templates/allfriends.html">Home</a></li>
+                    <li><a href="/feed/{{username}}">My Page</a></li>
                     <li><a href="#" class="friends-button">Your Friends</a></li>
                     <li><a href="/settings/{{username}}">Settings</a></li> 
                     <li><a href="/">Log out</a></li> 
@@ -94,36 +101,53 @@
         </div>
     </nav>
           
+          
+          
+          <!--------------------------------- MAIN CONTENT --------------------------------------->
           <div class="container" style="display: table ; width: 75% ; padding: 5%">              
             <div class="container" style="display: table-cell ; width: 75% ; overflow: auto;">
-              <form style="margin-bottom: 5%">
-                  <input type="text" class="form-control" placeholder="Text input" style="border-radius: 15px ; height: 50px">
-              </form>
               
+                <!--START BLOG POST INPUT FORM-->
+                <form style="margin-bottom: 5%">
+                  <input type="text" class="form-control startwriting" placeholder="Write something..." style="border-radius: 15px ; height: 50px; opacity: .8">
+                  
+                  <input type="text" class="form-control fullform" placeholder="Title.." style="height: 50px">
+                  <textarea class="form-control fullform" name="paragraph_text" cols="50" rows="10" placeholder="Type your post here..."></textarea>
+                  <center><button type="submit" class="btn btn-default fullform" name = "button" value = "change">Submit</button></center>
+                </form>
+              <!---------------------------------->
+                
+                
+                
               <div class="post">
+                  <img src="/static/RickHeadshotCircle copy.png" style="width: 100px ; height: 100px; position: absolute">
                   <center><h1>Hello</h1></center>
                   <center><p>Hello Hello Hello Hello Hello</p></center>
-              </div>
-              
+              </div>   
+                
+                
               <hr style="width: 75%">
               
               <div class="post">
+                  <img src="/static/RickHeadshotCircle copy.png" style="width: 100px ; height: 100px; position: absolute">
                   <center><h1>Hello</h1></center>
-                  <center><h2>Hello Hello Hello Hello Hello</h2></center>
+                  <center><h3>Hello Hello Hello Hello Hello</h2></center>
                   <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
               </div>
               
               <hr style="width: 75%">
                 
               <div class="post">
+                  <img src="/static/RickHeadshotCircle copy.png" style="width: 100px ; height: 100px; position: absolute">
                   <center><h1>Hello</h1></center>
-                  <center><h2>Hello Hello Hello Hello Hello</h2></center>
+                  <center><h3>Hello Hello Hello Hello Hello</h2></center>
                   <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
               </div>
                 
               <hr style="width: 75%">
                 
               <div class="post">
+                  <img src="/static/RickHeadshotCircle copy.png" style="width: 100px ; height: 100px; position: absolute">
                   <center><h1>Hello</h1></center>
                   <center><p>Hello Hello Hello Hello Hello</p></center>
               </div>
