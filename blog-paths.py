@@ -9,10 +9,8 @@ def intro():
 @app.route("/login", methods = ["POST"])
 def login():
     if str(request.form["button"]) == "Log in!":
-        print("1");
         username = str(request.form["username"])
         if username in dict.keys():
-            print("3")
             print(dict[username])
             print(request.form["password"])
             if str(dict[username]) == str(request.form["password"]):
@@ -22,7 +20,6 @@ def login():
         else:
             return render_template("/home.html", text = "Username does not exist")
     else:
-        print("2");
         return render_template("/home.html")
             
 
@@ -35,14 +32,28 @@ def register():
 def homepage():
     return render_template("homepage.html")
 
-@app.route("/setting")
-def setting():
-    return render_template("setting.html")
+@app.route("/settings")
+@app.route("/settings/<username>", methods = ["GET", "POST"])
+def settings(username):
+    print("1")
+    if request.method == "POST":
+        username = str(request.form["user"])
+        if str(dict[username]) == str(request.form["oldpass"]):
+            if str(request.form["pass1"]) == str(request.form["pass2"]):
+                dict[username] = str(request.form["pass1"])
+                return render_template("settings.html", username = username, text = "Password successfully changed")
+            else:
+                return render_template("settings.html", username = username, text = "New password does not match")
+        else:
+            return render_template("settings.html", username = username, text = "Current password incorrect")
+    else:
+        return render_template("settings.html", username = username)
+
 
 @app.route("/feed")
 @app.route("/feed/<username>")
 def feed(username):
-    return render_template("feed.html")
+    return render_template("feed.html", username = username)
 
 if __name__ == "__main__":
     app.debug = True
