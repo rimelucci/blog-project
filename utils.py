@@ -38,7 +38,7 @@ def findName(uname):
     c = conn.cursor()
     n = c.execute("SELECT first, last FROM accounts WHERE uname ='"+uname+"';")
     for r in n:
-        return n[0]+" "+n[1]
+        return r[0]+" "+r[1]
 
 #+=====++ Blog Posts ++=====+#
 
