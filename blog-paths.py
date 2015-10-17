@@ -1,5 +1,7 @@
+import utils
 from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
+utils.addAccount("test", "123")
 
 dict = {"test":123}
 @app.route("/")
@@ -10,15 +12,10 @@ def intro():
 def login():
     if str(request.form["button"]) == "Log in!":
         username = str(request.form["username"])
-        if username in dict.keys():
-            print(dict[username])
-            print(request.form["password"])
-            if str(dict[username]) == str(request.form["password"]):
-                return redirect('/feed/' + username)
-            else:
-                return render_template("/home.html", text = "Username/Password does not match")
+        if utils.pwordAuth(username, str(request.form["password"])):
+            return redirect('/feed/' + username)
         else:
-            return render_template("/home.html", text = "Username does not exist")
+            return render_template("/home.html", text = "Username/Password does not match")
     else:
         return render_template("/home.html")
             
