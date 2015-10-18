@@ -78,7 +78,7 @@ def showInfo(uname):
 def newPic(uname):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
-    c.execute("UPDATE accounts SET piclink = '"+uname+"' WHERE uname = '"+uname+".png';")
+    c.execute("UPDATE accounts SET piclink = 'static/"+uname+".png' WHERE uname = '"+uname+"';")
     conn.commit()
 
 def findPic(uname):
