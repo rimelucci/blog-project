@@ -1,9 +1,6 @@
 import utils
 from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
-utils.addAccount("test", "1234", "Derry", "Li")
-
-dict = {"test":123}
 @app.route("/")
 def intro():
     return render_template("home.html")
@@ -32,8 +29,11 @@ def allfriends():
 @app.route("/settings/<username>", methods = ["GET", "POST"])
 def settings(username):
     print("1")
-    print(utils.changePword(str(request.form["user"]), str(request.form["oldpass"]), str(request.form["pass1"]), str(request.form["pass2"])))
-    return render_template("settings.html", username = username)
+    if request.method == "POST":
+        the_response = utils.changePword(str(request.form["user"]), str(request.form["oldpass"]), str(request.form["pass1"]), str(request.form["pass2"]))
+        return render_template("settings.html", username = username, the_response = the_response)
+    else:
+        return render_template("settings.html", username = username)
 
 
 @app.route("/feed")
