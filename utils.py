@@ -77,20 +77,21 @@ def addPost(uname, title, sub, post):
     c.execute("INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?);", (findID(), uname, title, sub, post, displayDate()))
     conn.commit()
 
+def showPosts(uname):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    posts = c.execute("SELECT id, title, sub, post, time FROM posts WHERE uname = '"+uname+"';")
+    list = []
+    for r in posts:
+        list.append(r)# ID, title, sub, post, stamp
+    return list
+
 def showPost(ID):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
     post = c.execute("SELECT post FROM posts WHERE id = "+str(ID)+";")
     for r in post:
         return r[0]
-def showPosts(uname):
-    conn = sqlite3.connect("Data.db")
-    c = conn.cursor()
-    posts = c.execute("SELECT ID, uname, post FROM posts WHERE uname = '"+uname+"';")
-    list = []
-    for r in posts:
-        list.append(r)# ID, title, sub, post, stamp
-    return list
 
 def addComment(ID, uname, comment):
     conn = sqlite3.connect("Data.db")
@@ -104,7 +105,7 @@ def showComments(ID):
     comments = c.execute("SELECT uname, comment, time FROM comments WHERE id = "+str(ID)+";")
     list = []
     for r in comments:
-        list.append(r)#([r[1], r[2], r[3]])# 
+        list.append(r)# uname, comment, time
     return list
 
 def addLike(ID, uname):
@@ -119,7 +120,7 @@ def showLikes(ID):
     likes = c.execute("SELECT uname FROM likes WHERE id = "+str(ID)+";")
     list = []
     for r in likes:
-        list.append(r[0])
+        list.append(r[0])# uname
     return list
 
 def displayDate():
@@ -137,4 +138,6 @@ def printDate(d):
     date += time[0]+":"+time[1]
     return date
  
-print(printDate(displayDate()))
+#print(printDate(displayDate()))
+print(showPosts("Milo"))
+
