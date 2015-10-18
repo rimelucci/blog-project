@@ -137,7 +137,4 @@ def printDate(d):
     date += day[1]+"/"+day[2]+"/"+day[0]+" at "
     date += time[0]+":"+time[1]
     return date
- 
-#print(printDate(displayDate()))
-print(showPosts("Milo"))
 
