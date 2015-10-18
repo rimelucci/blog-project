@@ -22,10 +22,10 @@ def login():
 @app.route("/register", methods = ["GET", "POST"])
 def register():
     utils.addAccount(str(request.form["username"]), str(request.form["password"]), str(request.form["firstname"]), str(request.form["lastname"]))
-    return render_template("/feed.html")
+    return redirect('/feed/' + str(request.form["username"]))
 
 @app.route("/allfriends")
-def homepage():
+def allfriends():
     return render_template("allfriends.html")
 
 @app.route("/settings")
