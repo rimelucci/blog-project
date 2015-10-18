@@ -114,44 +114,27 @@
               
             <!-- START POSTING FORM -->  
             <div class="container" style="display: table-cell ; width: 75% ; overflow: auto;">
-              <form style="margin-bottom: 5%">
+              <form style="margin-bottom: 5%" action = "/feed/{{username}}" method = "POST">
                   <input type="text" class="form-control startwriting" placeholder="Write something..." style="border-radius: 15px ; height: 50px; opacity: .8">
                   
-                  <input type="text" class="form-control fullform" placeholder="Title.." style="height: 50px">
+                  <input type="text" class="form-control fullform" placeholder="Title.." style="height: 50px" name = "title">
                   <textarea class="form-control fullform" name="paragraph_text" cols="50" rows="10" placeholder="Type your post here..."></textarea>
-                  <center><button type="submit" class="btn btn-default fullform" name = "button" value = "change">Submit</button></center>
+                  <center><button type="submit" class="btn btn-default fullform" name = "post" value = "posted">Submit</button></center>
               </form>
             <!--------------------------->
               
                 
                 
             <!-- START POST DISPLAY -->
+	    {% for x in posts %}
               <div class="post">
-                  <center><h1>Hello</h1></center>
-                  <center><p>Hello Hello Hello Hello Hello</p></center>
+                  <center><h1>x[1]</h1></center>
+                  <center><h2>x[2]</h2></center>
+                  <p>x[3]</p>
               </div>
               
               <hr style="width: 75%">
-              
-              <div class="post">
-                  <center><h1>Hello</h1></center>
-                  <center><h2>Hello Hello Hello Hello Hello</h2></center>
-                  <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-              </div>
-              
-              <hr style="width: 75%">
-                
-              <div class="post">
-                  <center><h1>Hello</h1></center>
-                  <center><h2>Hello Hello Hello Hello Hello</h2></center>
-                  <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-              </div>
-                
-              <hr style="width: 75%">
-                
-              <div class="post">
-                  <center><h1>Hello</h1></center>
-                  <center><p>Hello Hello Hello Hello Hello</p></center>
+	      {% endfor %}
               </div>
             </div>
           </div>
