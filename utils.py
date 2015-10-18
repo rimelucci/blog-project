@@ -4,7 +4,7 @@ import sqlite3
 def setup():
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
-    c.execute("CREATE TABLE accounts (uname text, pword text, first text, last text, info text, piclink text)")
+    c.execute("CREATE TABLE accounts (uname text, pword text, first text, last text, info text, piclink text, friends text)")
     c.execute("CREATE TABLE posts (id integer, uname text, title text, sub text, post text, time text)")
     c.execute("CREATE TABLE comments (id integer, uname text, comment text, time text)")
     c.execute("CREATE TABLE likes (id integer, uname text)")
@@ -31,11 +31,13 @@ def pwordAuth(uname, pword):
 def addAccount(uname, pword, first, last):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
+    if uname.find(",") != -1: # it can't have a comma in it
+        return "This account name has a character that is not allowed (',')"
     accounts = c.execute("SELECT uname FROM accounts")
     for r in accounts:
         if r[0] == uname:
             return "This account name already exists"
-    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?, ?, ?);", (uname, pword, first, last, "", ""))
+    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?, ?, ?, ?);", (uname, pword, first, last, "", "", ""))
     conn.commit()
 
 def changePword(uname, oldP, newP, cNewP):
@@ -85,7 +87,39 @@ def findPic(uname):
     n = c.execute("SELECT piclink FROM accounts WHERE uname = '"+uname+"';")
     for r in n:
         return r[0]
-    
+#+=====++ Friends ++=====+#
+def friendList(uname): # returns list of friends
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    n = c.execute("SELECT friends FROM accounts WHERE uname = '"+uname+"';")
+    for r in n:
+        return r[0].split(",") # this is why no commas!
+        
+def isFriend(uname, friend): # returns if uname has friend as friend
+    f = friendList(uname)
+    if f != None:
+        for s in f:
+            if s == friend:
+                return True
+    return False
+
+def addFriend(uname, friend): # adds friend to uname's friends
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    if isFriend(uname, friend):
+        return
+    f = c.execute("SELECT friends FROM accounts WHERE uname = '"+uname+"';")
+    friends = ""
+    for s in f:
+        friends = s[0]
+    if friends != "":
+        friends += ","
+    friends += friend
+    c.execute("UPDATE accounts SET friends = '"+friends+"' WHERE uname = '"+uname+"';")
+    conn.commit()
+
+#addFriend("Milo", "Otherfriend")
+#print(friendList("Milo"))
 #+=====++ Blog Posts ++=====+#
 
 # posts:
