@@ -18,9 +18,15 @@ def login():
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():
-    utils.addAccount(str(request.form["username"]), str(request.form["password"]), str(request.form["firstname"]), str(request.form["lastname"]))
-    return redirect('/feed/' + str(request.form["username"]))
-
+    if str(request.form["button"]) == "Register!":
+        if utils.unameAuth(str(request.form["username"])) != True:
+            utils.addAccount(str(request.form["username"]), str(request.form["password"]), str(request.form["firstname"]), str(request.form["lastname"]))
+            utils.editInfo(str(request.form["username"]), str(request.form["paragraph_text"]))
+            return redirect('/feed/' + str(request.form["username"]))
+        else:
+            return render_template("/register.html", text = "this username already exists")
+    else:
+        return render_template("/home.html")
 @app.route("/allfriends")
 def allfriends():
     return render_template("allfriends.html")
@@ -46,7 +52,7 @@ def feed(username):
         print(request.form["title"])
         print(request.form["paragraph_text"])
         utils.addPost(username, str(request.form["title"]), "sub", str(request.form["paragraph_text"]))
-    return render_template("feed.html", username = username, posts = utils.showPosts(username))
+    return render_template("feed.html", username = username, posts = utils.showPosts(username), name = utils.findName(username), info = utils.showInfo(username))
 
 if __name__ == "__main__":
     app.debug = True
