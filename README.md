@@ -1,4 +1,4 @@
-Bloginator Project
+Bloginator Project - Travel Blog
 
 Members:
 
@@ -9,7 +9,7 @@ Rick Melucci (UX)
 
 Description:
 
-This is a simple travel blog. Each user has their own feed where all their previous posts live, and where they can add new posts. Users can visit another user's feed and like or comment each post. Each user also has a small bio under their profile picture that appears at the side of their blog posts.
+Our idea was to make a simple blog. Each user has their own feed where all their previous posts live, and where they can add new posts. Users can visit another user's feed and like or comment each post. Each user also has a small bio under their profile picture that appears at the side of their blog posts.
 
 How to use:
 
