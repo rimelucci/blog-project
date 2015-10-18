@@ -24,26 +24,16 @@ def register():
     utils.addAccount(str(request.form["username"]), str(request.form["password"]), str(request.form["firstname"]), str(request.form["lastname"]))
     return render_template("/feed.html")
 
-@app.route("/homepage")
+@app.route("/allfriends")
 def homepage():
-    return render_template("homepage.html")
+    return render_template("allfriends.html")
 
 @app.route("/settings")
 @app.route("/settings/<username>", methods = ["GET", "POST"])
 def settings(username):
     print("1")
-    if request.method == "POST":
-        username = str(request.form["user"])
-        if str(dict[username]) == str(request.form["oldpass"]):
-            if str(request.form["pass1"]) == str(request.form["pass2"]):
-                dict[username] = str(request.form["pass1"])
-                return render_template("settings.html", username = username, text = "Password successfully changed")
-            else:
-                return render_template("settings.html", username = username, text = "New password does not match")
-        else:
-            return render_template("settings.html", username = username, text = "Current password incorrect")
-    else:
-        return render_template("settings.html", username = username)
+    print(utils.changePword(str(request.form["user"]), str(request.form["oldpass"]), str(request.form["pass1"]), str(request.form["pass2"])))
+    return render_template("settings.html", username = username)
 
 
 @app.route("/feed")
