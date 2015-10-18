@@ -1,5 +1,25 @@
 import sqlite3
 
+#+=====++ Setup ++=====+#
+def setup():
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    c.execute("CREATE TABLE accounts (uname text, pword text, first text, last text, info text, piclink text)")
+    c.execute("CREATE TABLE posts (id integer, uname text, title text, sub text, post text, time text)")
+    c.execute("CREATE TABLE comments (id integer, uname text, comment text, time text)")
+    c.execute("CREATE TABLE likes (id integer, uname text)")
+    conn.commit()
+
+#+=====++ Accounts ++=====+#
+def unameAuth(uname):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    accounts = c.execute("SELECT uname FROM accounts")
+    for r in accounts:
+        if r[0] == uname:
+            return True
+    return False
+
 def pwordAuth(uname, pword):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
@@ -15,7 +35,7 @@ def addAccount(uname, pword, first, last):
     for r in accounts:
         if r[0] == uname:
             return "This account name already exists"
-    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?);", (uname, pword, first, last))
+    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?, ?, ?);", (uname, pword, first, last, "", ""))
     conn.commit()
 
 def changePword(uname, oldP, newP, cNewP):
@@ -40,25 +60,42 @@ def findName(uname):
     for r in n:
         return r[0]+" "+r[1]
 
+def editInfo(uname, info):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    c.execute("UPDATE accounts SET info = '"+info+"' WHERE uname = '"+uname+"';")
+    conn.commit()
+
+def showInfo(uname):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    n = c.execute("SELECT info FROM accounts WHERE uname = '"+uname+"';")
+    for r in n:
+        return r[0]
+
+def newPic(uname):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    c.execute("UPDATE accounts SET piclink = '"+uname+"' WHERE uname = '"+uname+"';")
+    conn.commit()
+
+def findPic(uname):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    n = c.execute("SELECT piclink FROM accounts WHERE uname = '"+uname+"';")
+    for r in n:
+        return r[0]
+    
 #+=====++ Blog Posts ++=====+#
 
 # posts:
-# (id, uname, post, time)
+# (id, uname, post, title, sub, time)
 # 
 # comments:
 # (id, uname, comment, time)
 #
 # likes:
 # (id, uname)
-
-def setup():
-    conn = sqlite3.connect("Data.db")
-    c = conn.cursor()
-    c.execute("CREATE TABLE accounts (uname text, pword text, first text, last text)")
-    c.execute("CREATE TABLE posts (id integer, uname text, title text, sub text, post text, time text)")
-    c.execute("CREATE TABLE comments (id integer, uname text, comment text, time text)")
-    c.execute("CREATE TABLE likes (id integer, uname text)")
-    conn.commit()
 
 def findID():
     conn = sqlite3.connect("Data.db")
