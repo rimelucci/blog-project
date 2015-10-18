@@ -106,8 +106,8 @@
           <div class="container" style="display: table ; width: 75% ; padding: 5%">
             <div class="container" style="display: table-cell ; border-radius: 15px ; padding: 5%">
                 <img src="/static/RickHeadshotCircle copy.png" style="width: 250px ; height: 250px">
-                <center><h2 class="description">Rick Melucci</h2>
-                <p class="description">Here's a small description of me: I like blah blah and blah blah</p></center>
+                <center><h2 class="description">{{name}}</h2>
+                <p class="description">{{info}}</p></center>
             </div>
             <!--------------------------->
               
@@ -126,11 +126,11 @@
                 
                 
             <!-- START POST DISPLAY -->
-	    {% for x in posts %}
+	    {% for x in posts | reverse %}
               <div class="post">
-                  <center><h1>x[1]</h1></center>
-                  <center><h2>x[2]</h2></center>
-                  <p>x[3]</p>
+                  <center><h1>{{ x[1] }}</h1></center>
+                  <center><h2>{{ x[2] }}</h2></center>
+                  <p>{{ x[3] }}</p>
               </div>
               
               <hr style="width: 75%">
