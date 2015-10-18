@@ -78,7 +78,7 @@ def showInfo(uname):
 def newPic(uname):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
-    c.execute("UPDATE accounts SET piclink = '"+uname+"' WHERE uname = '"+uname+"';")
+    c.execute("UPDATE accounts SET piclink = '"+uname+"' WHERE uname = '"+uname+".png';")
     conn.commit()
 
 def findPic(uname):
@@ -118,8 +118,6 @@ def addFriend(uname, friend): # adds friend to uname's friends
     c.execute("UPDATE accounts SET friends = '"+friends+"' WHERE uname = '"+uname+"';")
     conn.commit()
 
-#addFriend("Milo", "Otherfriend")
-#print(friendList("Milo"))
 #+=====++ Blog Posts ++=====+#
 
 # posts:
@@ -156,6 +154,14 @@ def showPosts(uname):
     for r in posts:
         list.append(r)# ID, title, sub, post, stamp
     return list
+def showFriendPosts(uname):
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    posts = c.execute("SELECT id, uname, title, sub, post, time FROM posts")
+    friendPosts = []
+    for r in posts:
+        if isFriend(uname, r[1]):
+            friendPosts.amend(r)# note that everything after id is +1 in index
 
 def showPost(ID):
     conn = sqlite3.connect("Data.db")
