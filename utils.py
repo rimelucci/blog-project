@@ -55,7 +55,7 @@ def setup():
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
     c.execute("CREATE TABLE accounts (uname text, pword text, first text, last text)")
-    c.execute("CREATE TABLE posts (id integer, uname text, post text, time text)")
+    c.execute("CREATE TABLE posts (id integer, uname text, title text, sub text, post text, time text)")
     c.execute("CREATE TABLE comments (id integer, uname text, comment text, time text)")
     c.execute("CREATE TABLE likes (id integer, uname text)")
     conn.commit()
@@ -71,10 +71,10 @@ def findID():
             max = id
     return max+1
 
-def addPost(uname, post):
+def addPost(uname, title, sub, post):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
-    c.execute("INSERT INTO posts VALUES (?, ?, ?, ?);", (findID(), uname, post, displayDate()))
+    c.execute("INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?);", (findID(), uname, title, sub, post, displayDate()))
     conn.commit()
 
 def showPost(ID):
@@ -89,7 +89,7 @@ def showPosts(uname):
     posts = c.execute("SELECT ID, uname, post FROM posts WHERE uname = '"+uname+"';")
     list = []
     for r in posts:
-        list.append(r)# ID, post, stamp
+        list.append(r)# ID, title, sub, post, stamp
     return list
 
 def addComment(ID, uname, comment):
