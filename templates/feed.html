@@ -33,7 +33,7 @@
             }
               
             .post{
-                background-color: #F2B3B3;
+                background-color: #AC9D9E;
                 border-radius: 15px;
                 padding: 5%;
             }
@@ -62,6 +62,19 @@
                 opacity: .8;
                 margin-bottom: 1%;
                 display: none;
+            }
+              
+            .comments{
+                background-color: #AC9D9E;
+                /*border-bottom-right-radius: 15px;
+                border-bottom-left-radius: 15px;*/
+                padding: 5%;
+            }
+              
+            .showcomments{
+                color: white;
+                font-size: 16pt;
+                
             }
           </style>
           <script type="text/javascript" src="/static/app.js"></script>
@@ -119,6 +132,7 @@
               
             <!-- START POSTING FORM -->  
             <div class="container" style="display: table-cell ; width: 75% ; overflow: auto;">
+                
               <form style="margin-bottom: 5%" action = "/feed/{{username}}" method = "POST">
                   <input type="text" class="form-control startwriting" placeholder="Write something..." style="border-radius: 15px ; height: 50px; opacity: .8">
                   
@@ -128,15 +142,36 @@
               </form>
             <!--------------------------->
               
-                
+                <center><a href="#" class="showcomments">Toggle comments!</a></center>
+                <br>
                 
             <!-- START POST DISPLAY -->
 	    {% for x in posts | reverse %}
-              <div class="post">
+            <div style="background-color: #AC9D9E ; border-radius: 15px">  
+            <div class="post">
                   <center><h1>{{ x[1] }}</h1></center>
                   <center><h2>{{ x[2] }}</h2></center>
                   <p>{{ x[3] }}</p>
               </div>
+                
+                
+                <hr style="width: 50%">
+                  <div class="comments">
+		    {% for y in x %}
+                    <div>
+                      <h4>{{ y[0] }} commented:</h4>
+                      <p>{{ y[1] }}</p>
+                      <small style="float: right">{{ y[2] }}</small>
+                    </div>
+		    {% endfor %}
+                    <br>
+                  </div>
+                <form>
+                    <input type="text" class="form-control" placeholder="Write something..." style="height: 50px; opacity: .8; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px">
+                </form>
+		</div>
+                
+              
               <hr style="width: 75%">
 	      {% endfor %}
               </div>
