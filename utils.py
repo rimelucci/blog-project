@@ -15,6 +15,11 @@ def replaceAp(s):
     return s.replace("'", "&#8217")
 def unreplace(s):
     return s.replace("&#8217", "'")
+def listRep(l):
+    n = []
+    for s in l:
+        n.append(unreplace(s))
+    return n
 #+=====++ Accounts ++=====+#
 def unameAuth(uname):
     conn = sqlite3.connect("Data.db")
@@ -44,7 +49,7 @@ def addAccount(uname, pword, first, last):
     for r in accounts:
         if r[0] == uname:
             return "This account name already exists"
-    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?, ?, ?, ?);", (replaceAp(uname), replaceAp(pword), replaceAp(first), replace(last), "", "", ""))
+    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?, ?, ?, ?);", (replaceAp(uname), replaceAp(pword), replaceAp(first), replaceAp(last), "", "", ""))
     conn.commit()
 
 def changePword(uname, oldP, newP, cNewP):
@@ -67,7 +72,7 @@ def findName(uname):
     c = conn.cursor()
     n = c.execute("SELECT first, last FROM accounts WHERE uname ='"+uname+"';")
     for r in n:
-        return r[0]+" "+r[1]
+        return unreplace(r[0]+" "+r[1])
 
 def editInfo(uname, info):
     conn = sqlite3.connect("Data.db")
@@ -80,7 +85,7 @@ def showInfo(uname):
     c = conn.cursor()
     n = c.execute("SELECT info FROM accounts WHERE uname = '"+uname+"';")
     for r in n:
-        return r[0]
+        return unreplace(r[0])
 
 def newPic(uname):
     conn = sqlite3.connect("Data.db")
@@ -180,7 +185,7 @@ def showPost(ID):
     c = conn.cursor()
     post = c.execute("SELECT post FROM posts WHERE id = "+str(ID)+";")
     for r in post:
-        return r[0]
+        return unreplace(r[0])
 
 def addComment(ID, uname, comment):
     conn = sqlite3.connect("Data.db")
@@ -195,7 +200,7 @@ def showComments(ID):
     list = []
     for r in comments:
         list.append(r)# uname, comment, time
-    return list
+    return listRep(list)
 
 def addLike(ID, uname):
     conn = sqlite3.connect("Data.db")
