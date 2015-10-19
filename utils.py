@@ -200,7 +200,7 @@ def showComments(ID):
     list = []
     for r in comments:
         list.append(r)# uname, comment, time
-    return listRep(list)
+    return list
 
 def addLike(ID, uname):
     conn = sqlite3.connect("Data.db")
@@ -225,7 +225,7 @@ def displayDate():
 
     time = d[1].split(":")
     day = d[0].split("-")
-
+    
     date += day[1]+"/"+day[2]+"/"+day[0]+" at "
     date += time[0]+":"+time[1]
     return date
