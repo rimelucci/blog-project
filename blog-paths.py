@@ -27,9 +27,10 @@ def register():
             return render_template("/register.html", text = "this username already exists")
     else:
         return render_template("/home.html")
-@app.route("/allfriends")
-def allfriends():
-    return render_template("allfriends.html")
+@app.route("/home")
+@app.route("/home/<username>", methods = ["GET", "POST"])
+def home(username):
+    return render_template("allfriends.html", theposts = utils.showFriendPosts(username), username = username)
 
 @app.route("/settings")
 @app.route("/settings/<username>", methods = ["GET", "POST"])
