@@ -30,10 +30,17 @@ def register():
 @app.route("/home")
 @app.route("/home/<username>", methods = ["GET", "POST"])
 def home(username):
+    print("hello")
     if request.method == "POST":
+        print("2")
         if(str(request.form["post"]) == "finding"):
             utils.addFriend(username, str(request.form["search_for"]))
-    return render_template("allfriends.html", theposts = utils.showFriendPosts(username), username = username, friendslist = utils.friendList(username))
+        elif (str(request.form["post"])) == "commenting":
+            print("1")
+            print(str(request.form["id"]))
+            print("3")
+            utils.addComment(str(request.form["id"]), username, str(request.form["comments"]))
+    return render_template("allfriends.html", theposts = utils.showFriendPosts(username), username = username, friendslist = utils.friendList(username), comments = utils.showAllComments())
 
 @app.route("/settings")
 @app.route("/settings/<username>", methods = ["GET", "POST"])
@@ -67,9 +74,9 @@ def feed(username):
             print("3")
             utils.addFriend(username, str(request.form["search_for"]))
             print(utils.isFriend(username, str(request.form["search_for"])))
-    print(len(utils.friendList(username)))
-    print(utils.friendList(username)[0])
-    return render_template("feed.html", username = username, compareto = username,  posts = utils.showPosts(username), name = utils.findName(username), info = utils.showInfo(username), friendslist = utils.friendList(username))
+        elif (str(request.form["post"])) == "commenting":
+            utils.addComment(str(request.form["id"]), username, str(request.form["comments"]))
+    return render_template("feed.html", comments = utils.showAllComments(), username = username, compareto = username,  posts = utils.showPosts(username), name = utils.findName(username), info = utils.showInfo(username), friendslist = utils.friendList(username))
 
 @app.route("/<username>")
 @app.route("/<username>/<user2>", methods = ["GET", "POST"])

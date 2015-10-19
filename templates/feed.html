@@ -160,19 +160,22 @@
                 
                 <hr style="width: 50%">
                   <div class="comments">
-		    {% for y in x %}
+		    {% for y in comments %}
+		    {% if x[0] == y[0] %}
                     <div>
-                      <h4>{{ y[0] }} commented:</h4>
-                      <p>{{ y[1] }}</p>
-                      <small style="float: right">{{ y[2] }}</small>
+                      <h4>{{ y[1] }} commented:</h4>
+                      <p>{{ y[2] }}</p>
+                      <small style="float: right">{{ y[3] }}</small>
                     </div>
+		    {% endif %}
 		    {% endfor %}
                     <br>
                   </div>
-                <form>
-                    <input type="text" class="form-control startcomment" placeholder="Write something..." style="height: 50px; opacity: .8; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px">
+                <form action = "/feed/{{username}}", method = "POST">
+                  <input type="text" class="form-control startcomment" placeholder="Write something..." style="height: 50px; opacity: .8; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px" name = "comments">
+		  <input type = "hidden" name = "id" value = "{{ x[0] }}">
 		</div>
-                <center><button type="submit" class="btn btn-default postcomment">Post comment</button></center>
+                <center><button type="submit" class="btn btn-default postcomment" name = "post" value = "commenting">Post comment</button></center>
                 </form>
               
               <hr style="width: 75%">
