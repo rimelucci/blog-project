@@ -202,6 +202,15 @@ def showComments(ID):
         list.append(r)# uname, comment, time
     return list
 
+def showAllComments():
+    conn = sqlite3.connect("Data.db")
+    c = conn.cursor()
+    comments = c.execute("SELECT id, uname, comment, time FROM comments;")
+    list = []
+    for r in comments:
+        list.append(r)# id, uname, comment, time
+    return list
+
 def addLike(ID, uname):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
