@@ -69,8 +69,12 @@ def feed(username):
             print(utils.isFriend(username, str(request.form["search_for"])))
     print(len(utils.friendList(username)))
     print(utils.friendList(username)[0])
-    return render_template("feed.html", username = username, posts = utils.showPosts(username), name = utils.findName(username), info = utils.showInfo(username), friendslist = utils.friendList(username))
+    return render_template("feed.html", username = username, compareto = username,  posts = utils.showPosts(username), name = utils.findName(username), info = utils.showInfo(username), friendslist = utils.friendList(username))
 
+@app.route("/<username>")
+@app.route("/<username>/<user2>", methods = ["GET", "POST"])
+def viewing(username, user2):
+    return render_template("feed.html", username = username, compareto = user2, posts = utils.showPosts(user2), name = utils.findName(user2), info = utils.showInfo(user2), friendslist = utils.friendList(username))
 
 if __name__ == "__main__":
     app.debug = True
