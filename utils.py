@@ -219,7 +219,11 @@ def showLikes(ID):
 
 def displayDate():
     import datetime
+<<<<<<< HEAD
     d = str(datetime.datetime.now())    
+=======
+    d = str(datetime.datetime.now())
+>>>>>>> 1f9fa2c2d8b16916280b7c270a59d998444e9894
     d = d.split(" ")
     date = ""
 
