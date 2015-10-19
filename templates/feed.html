@@ -95,7 +95,13 @@
                     <li class="active"><a href="/feed/{{username}}">My Page</a></li>
                     <li><a href="#" class="friends-button">Your Friends</a></li>
                     <li><a href="/settings/{{username}}">Settings</a></li> 
-                    <li><a href="/">Log out</a></li> 
+                    <li><a href="/">Log out</a></li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
                 </ul>
             </div>
         </div>
@@ -132,7 +138,6 @@
                   <center><h2>{{ x[2] }}</h2></center>
                   <p>{{ x[3] }}</p>
               </div>
-              
               <hr style="width: 75%">
 	      {% endfor %}
               </div>
