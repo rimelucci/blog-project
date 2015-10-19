@@ -10,6 +10,11 @@ def setup():
     c.execute("CREATE TABLE likes (id integer, uname text)")
     conn.commit()
 
+#+=====++ Apostrophes ++=====+#
+def replaceAp(s):
+    return s.replace("'", "&#8217")
+def unreplace(s):
+    return s.replace("&#8217", "'")
 #+=====++ Accounts ++=====+#
 def unameAuth(uname):
     conn = sqlite3.connect("Data.db")
@@ -33,11 +38,13 @@ def addAccount(uname, pword, first, last):
     c = conn.cursor()
     if uname.find(",") != -1: # it can't have a comma in it
         return "This account name has a character that is not allowed (',')"
+    if uname.find("'") != -1: # it can't have an apostrophe in it
+        return "This account name has a character that is not allowed (''')"
     accounts = c.execute("SELECT uname FROM accounts")
     for r in accounts:
         if r[0] == uname:
             return "This account name already exists"
-    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?, ?, ?, ?);", (uname, pword, first, last, "", "", ""))
+    c.execute("INSERT INTO accounts VALUES (?, ?, ?, ?, ?, ?, ?);", (replaceAp(uname), replaceAp(pword), replaceAp(first), replace(last), "", "", ""))
     conn.commit()
 
 def changePword(uname, oldP, newP, cNewP):
@@ -51,7 +58,7 @@ def changePword(uname, oldP, newP, cNewP):
     if newP != cNewP:
         return "The confirmed new password did not match."
     else:
-        c.execute("UPDATE accounts SET pword = '"+newP+"' WHERE uname = '"+uname+"';")
+        c.execute("UPDATE accounts SET pword = '"+replaceAp(newP)+"' WHERE uname = '"+uname+"';")
         conn.commit()        
         return "Password successfully updated"
 
@@ -65,7 +72,7 @@ def findName(uname):
 def editInfo(uname, info):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
-    c.execute("UPDATE accounts SET info = '"+info+"' WHERE uname = '"+uname+"';")
+    c.execute("UPDATE accounts SET info = '"+replaceAp(info)+"' WHERE uname = '"+uname+"';")
     conn.commit()
 
 def showInfo(uname):
@@ -147,7 +154,7 @@ def findID():
 def addPost(uname, title, sub, post):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
-    c.execute("INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?);", (findID(), uname, title, sub, post, displayDate()))
+    c.execute("INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?);", (findID(), uname, replaceAp(title), replaceAp(sub), replaceAp(post), displayDate()))
     conn.commit()
 
 def showPosts(uname):
@@ -165,7 +172,7 @@ def showFriendPosts(uname):
     friendPosts = []
     for r in posts:
         if isFriend(uname, r[1]):
-            friendPosts.amend(r)# note that everything after id is +1 in index
+            friendPosts.append(r)# note that everything after id is +1 in index
     return friendPosts
 
 def showPost(ID):
@@ -178,7 +185,7 @@ def showPost(ID):
 def addComment(ID, uname, comment):
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
-    c.execute("INSERT INTO comments VALUES (?, ?, ?, ?);", (ID, uname, comment, displayDate()))
+    c.execute("INSERT INTO comments VALUES (?, ?, ?, ?);", (ID, uname, replaceAp(comment), displayDate()))
     conn.commit()
 
 def showComments(ID):
@@ -219,4 +226,3 @@ def printDate(d):
     date += day[1]+"/"+day[2]+"/"+day[0]+" at "
     date += time[0]+":"+time[1]
     return date
-
