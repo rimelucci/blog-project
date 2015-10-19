@@ -107,7 +107,11 @@ def addFriend(uname, friend): # adds friend to uname's friends
     conn = sqlite3.connect("Data.db")
     c = conn.cursor()
     if isFriend(uname, friend):
-        return
+        return False
+    if not unameAuth(friend):
+        return False
+    if not unameAuth(uname):
+        return False
     f = c.execute("SELECT friends FROM accounts WHERE uname = '"+uname+"';")
     friends = ""
     for s in f:
@@ -117,7 +121,7 @@ def addFriend(uname, friend): # adds friend to uname's friends
     friends += friend
     c.execute("UPDATE accounts SET friends = '"+friends+"' WHERE uname = '"+uname+"';")
     conn.commit()
-
+    return True
 #+=====++ Blog Posts ++=====+#
 
 # posts:
