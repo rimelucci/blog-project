@@ -2,6 +2,7 @@ var main = function () {
     
     $('.fullform').hide();
     $('.comments').hide();
+    $('.postcomment').hide();
     
     $(".friends-button").click(
         function(){
@@ -45,6 +46,14 @@ var main = function () {
             $('.comments').toggle(300);
         }
     );
+    
+    $(".startcomment").click(
+        function(){
+            
+            $('.postcomment').show(300);
+        }
+    );
+    
 }
 
 $(document).ready(main);
