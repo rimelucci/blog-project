@@ -46,7 +46,7 @@
               
               
             .menu {
-                background: white;
+                background-image: url(/static/textured_stripes.png);
                 right: -250px;  /* start off behind the scenes */
                 height: 100%;
                 position: fixed;
@@ -90,11 +90,11 @@
       <body>
           
         <div class="menu">
-            <a href="#" class="close" style="font-size: 36pt">✖</a>
+            <a href="#" class="close" style="font-size: 36pt ; color: black">✖</a>
            <div class="list-group" style="margin-top: 80px ; padding: 10px">
                 <ul>
 		  {% for x in friendslist %}
-		  <li><a href="/feed/{{x}}">{{x}}'s page</a></li>
+		  <li style="font-size: 15pt"><a href="/feed/{{x}}">{{x}}'s page</a></li>
 		  {% endfor %}
                </ul>
             </div>
@@ -149,6 +149,8 @@
 		  <div class="post">
                     <img src="/static/RickHeadshotCircle copy.png" style="width: 100px ; height: 100px; position: absolute">
                     <center><h1>{{ x[2] }}</h1></center>
+              <br>
+              <br>
                     <center><p>{{ x[4] }}</p></center>
 		  </div>
                   

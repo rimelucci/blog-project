@@ -51,6 +51,7 @@ var main = function () {
         function(){
             
             $('.postcomment').show(300);
+            $('.comments').show(300);
         }
     );
     
