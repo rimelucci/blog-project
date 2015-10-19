@@ -30,30 +30,47 @@ def register():
 @app.route("/home")
 @app.route("/home/<username>", methods = ["GET", "POST"])
 def home(username):
-    return render_template("allfriends.html", theposts = utils.showFriendPosts(username), username = username)
+    if request.method == "POST":
+        if(str(request.form["post"]) == "finding"):
+            utils.addFriend(username, str(request.form["search_for"]))
+    return render_template("allfriends.html", theposts = utils.showFriendPosts(username), username = username, friendslist = utils.friendList(username))
 
 @app.route("/settings")
 @app.route("/settings/<username>", methods = ["GET", "POST"])
 def settings(username):
     print("1")
     if request.method == "POST":
-        the_response = utils.changePword(str(request.form["user"]), str(request.form["oldpass"]), str(request.form["pass1"]), str(request.form["pass2"]))
-        return render_template("settings.html", username = username, the_response = the_response)
+        print("2")
+        if (str(request.form["post"]) == "change"):
+            print("3")
+            the_response = utils.changePword(str(request.form["user"]), str(request.form["oldpass"]), str(request.form["pass1"]), str(request.form["pass2"]))
+            return render_template("settings.html", username = username, the_response = the_response, friendslist = utils.friendList(username))
+        elif (str(request.form["post"]) == "finding"):
+            print("4")
+            utils.addFriend(username, str(request.form["search_for"]))
+            return render_template("settings.html", username = username, friendslist = utils.friendList(username))
     else:
-        return render_template("settings.html", username = username)
-
+        return render_template("settings.html", username = username, friendslist = utils.friendList(username))
+                  
 
 @app.route("/feed")
 @app.route("/feed/<username>", methods = ["GET", "POST"])
 def feed(username):
-    print(len(utils.showPosts("test")))
     print(request.method == "POST")
     if request.method == "POST":
-        print("1")
-        print(request.form["title"])
-        print(request.form["paragraph_text"])
-        utils.addPost(username, str(request.form["title"]), "sub", str(request.form["paragraph_text"]))
-    return render_template("feed.html", username = username, posts = utils.showPosts(username), name = utils.findName(username), info = utils.showInfo(username))
+        print("5")
+        if(str(request.form["post"]) == "posted"):
+            print("2")
+            utils.addPost(username, str(request.form["title"]), "sub", str(request.form["paragraph_text"]))
+        elif (str(request.form["post"])) == "finding":
+            print(str(request.form["search_for"]))
+            print("3")
+            utils.addFriend(username, str(request.form["search_for"]))
+            print(utils.isFriend(username, str(request.form["search_for"])))
+    print(len(utils.friendList(username)))
+    print(utils.friendList(username)[0])
+    return render_template("feed.html", username = username, posts = utils.showPosts(username), name = utils.findName(username), info = utils.showInfo(username), friendslist = utils.friendList(username))
+
 
 if __name__ == "__main__":
     app.debug = True

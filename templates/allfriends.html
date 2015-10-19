@@ -88,10 +88,9 @@
             <a href="#" class="close" style="font-size: 36pt">✖</a>
            <div class="list-group" style="margin-top: 80px ; padding: 10px">
                 <ul>
-                    <li><a href="/login">My page</a></li>
-                    <li><a href="/derry">Derry's Page</a></li>
-                    <li><a href="/derry">Milo's Page</a></li>
-                    <li><a href="/derry">Felipe's Page</a></li>
+		  {% for x in friendslist %}
+		  <li><a href="/feed/{{x}}">{{x}}'s page</a></li>
+		  {% endfor %}
                </ul>
             </div>
         </div>    
@@ -105,16 +104,16 @@
                 </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/templates/allfriends.html">Home</a></li>
+                    <li class="active"><a href="/home/{{username}}">Home</a></li>
                     <li><a href="/feed/{{username}}">My Page</a></li>
                     <li><a href="#" class="friends-button">Your Friends</a></li>
                     <li><a href="/settings/{{username}}">Settings</a></li> 
                     <li><a href="/">Log out</a></li> 
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" role="search" action = "/home/{{username}}", method = "POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search" name = "search_for">
                         </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default" name = "post" value = "finding">Submit</button>
                     </form>
                 </ul>
             </div>

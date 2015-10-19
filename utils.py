@@ -165,7 +165,7 @@ def showFriendPosts(uname):
     friendPosts = []
     for r in posts:
         if isFriend(uname, r[1]):
-            friendPosts.amend(r)# note that everything after id is +1 in index
+            friendPosts.append(r)# note that everything after id is +1 in index
     return friendPosts
 
 def showPost(ID):
